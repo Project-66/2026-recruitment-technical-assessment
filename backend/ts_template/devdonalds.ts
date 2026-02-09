@@ -46,7 +46,7 @@ app.post("/parse", (req:Request, res:Response) => {
 // Takes in a recipeName and returns it in a form that 
 const parse_handwriting = (recipeName: string): string | null => {
   // removes all non-letter
-  recipeName = recipeName.replace(/[^a-zA-Z\-_\s]/g, '');
+  recipeName = recipeName.replace(/[^a-zA-Z\-_ ]/g, '');
 
   // replaces "-" sequences with a single space
   recipeName = recipeName.split("-").join(" ");
