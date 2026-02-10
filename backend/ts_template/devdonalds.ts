@@ -26,7 +26,8 @@ const app = express();
 app.use(express.json());
 
 // Store your recipes here!
-const cookbook: any = null;
+const cookbook = [];
+const cookbookNames = new Map();
 
 // Task 1 helper (don't touch)
 app.post("/parse", (req:Request, res:Response) => {
@@ -66,10 +67,51 @@ const parse_handwriting = (recipeName: string): string | null => {
 
 // [TASK 2] ====================================================================
 // Endpoint that adds a CookbookEntry to your magical cookbook
-app.post("/entry", (req:Request, res:Response) => {
-  // TODO: implement me
-  res.status(500).send("not yet implemented!")
+app.post("/entry", (req: Request, res: Response) => {
+  const input = req.body;
+  // check if the name of the new item is unique
+  if (cookbookNames.has(input.name)) {
+    res.status(400).send(`you cannot have two entries with the name ${input.name} in the cookbook`);
+    return;
+  }
 
+  // check if the type is correct
+  if (input.type === "recipe") {
+    const recipe = input as recipe;
+    
+    // check if all the items in requiredItems have a unique name using a Map
+    const namesMap = new Map();
+
+    for (let i = 0; i < recipe.requiredItems.length; i++) {
+      const currItem = recipe.requiredItems[i] as requiredItem;
+      if (namesMap.has(currItem.name)) {
+        res.status(400).send(`you cannot have multiple requiredItems with the same name in the recipe ${recipe.name}`);
+        return;
+      } else {
+        namesMap.set(currItem.name, null);
+      }
+    }
+
+    // great success!
+    cookbook.push(recipe);
+    cookbookNames.set(recipe.name, null);
+    res.status(200).send();
+  } else if (input.type === "ingredient") {
+    const ingredient = input as ingredient;
+
+    // check if the cooktime is correct
+    if (ingredient.cookTime as number < 0) {
+      res.status(400).send(`cookTime for the ingredient ${ingredient.name} must be greater than or equal to 0`);
+      return;
+    }
+
+    // great success!
+    cookbook.push(ingredient);
+    cookbookNames.set(ingredient.name, null);
+    res.status(200).send();
+  } else {
+    res.status(400).send("incorrect type (not recipe or ingredient)!");
+  }
 });
 
 // [TASK 3] ====================================================================
