@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import Image from "next/image";
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
     <>
       <div>
         {/* navbar */}
+        <ModeToggle />
       </div>
       <div>
         {/* filters/search/sort */}
