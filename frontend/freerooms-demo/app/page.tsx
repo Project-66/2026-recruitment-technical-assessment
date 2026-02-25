@@ -1,5 +1,11 @@
 "use client"
 
+/* -------------------------------------------------------------------------- */
+/*                             Frontend Demo Task                             */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------------- Imports -------------------------------- */
+
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +24,63 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+
+/* -------------------------- Buildings (Test) Data ------------------------- */
+
+const buildings = [
+  {
+    "name": "AGSM",
+    "rooms_available": 9,
+    "building_file": "./agsm.webp"
+  },
+  {
+    "name": "Ainsworth Building",
+    "rooms_available": 16,
+    "building_picture": "./ainsworth.webp"
+  },
+  {
+    "name": "Anita B Lawrence Centre",
+    "rooms_available": 44,
+    "building_picture": "./anitb.webp"
+  },
+  {
+    "name": "Biological Sciences",
+    "rooms_available": 6,
+    "building_picture": "./biologicalScience.webp"
+  },
+  {
+    "name": "Biological Science (West)",
+    "rooms_available": 8,
+    "building_picture": "biologicalScienceWest.webp"
+  },
+  {
+    "name": "Blockhouse",
+    "rooms_available": 42,
+    "building_picture": "./blockhouse.webp"
+  },
+  {
+    "name": "Business School",
+    "rooms_available": 18,
+    "building_picture": "./businessSchool.webp"
+  },
+  {
+    "name": "Civil Engineering Building",
+    "rooms_available": 8,
+    "building_picture": "./civilBuilding.webp"
+  },
+  {
+    "name": "Colombo Building",
+    "rooms_available": 5,
+    "building_picture": "./colombo.webp"
+  },
+  {
+    "name": "Computer Science & Eng (K17)",
+    "rooms_available": 7,
+    "building_picture": "./cseBuilding.webp"
+  }
+];
+
+/* ----------------------------- Home Component ----------------------------- */
 
 export default function Home() {
   const [ doorOpen, setDoorOpen ] = useState(true);
