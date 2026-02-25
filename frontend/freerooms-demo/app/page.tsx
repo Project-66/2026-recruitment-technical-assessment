@@ -24,6 +24,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { useMediaQuery } from "react-responsive";
 
 /* -------------------------- Buildings (Test) Data ------------------------- */
 
@@ -84,6 +85,7 @@ const buildings = [
 
 export default function Home() {
   const [ doorOpen, setDoorOpen ] = useState(true);
+  const isMobile = useMediaQuery({ query: '(max-width: 700px)' });
 
   return (
     <div className="flex flex-col">
@@ -115,24 +117,36 @@ export default function Home() {
           <ModeToggle />
         </div>
       </div>
-      <div className="p-3 pb-2 w-screen flex flex-row items-center">
-        {/* filters/search/sort */}
-        <Button variant="outline" size="lg" className="border-[#ef7020] border-3 rounded-xl text-[#ef7020] text-lg">
-          <Filter />
-          Filter
-        </Button>
-        <div className="flex-1" />
-         <InputGroup className="max-w-1/2">
+      <div className="flex flex-col p-3 pb-2 gap-y-3 items-center">
+        {isMobile && (
+          <InputGroup className="w-[99%]">
             <InputGroupInput placeholder="Search..." />
             <InputGroupAddon>
               <Search />
             </InputGroupAddon>
           </InputGroup>
-        <div className="flex-1" />
-        <Button variant="outline" size="lg" className="border-[#ef7020] border-3 rounded-xl text-[#ef7020] text-lg">
-          <SortDesc />
-          Sort
-        </Button>
+        )}
+        <div className="px-3 w-screen flex flex-row items-center">
+          {/* filters/search/sort */}
+          <Button variant="outline" size="lg" className="border-[#ef7020] border-3 rounded-xl text-[#ef7020] text-lg">
+            <Filter />
+            Filter
+          </Button>
+          <div className="flex-1" />
+          {!isMobile && (
+            <InputGroup className="max-w-1/2">
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon>
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+          )}
+          <div className="flex-1" />
+          <Button variant="outline" size="lg" className="border-[#ef7020] border-3 rounded-xl text-[#ef7020] text-lg">
+            <SortDesc />
+            Sort
+          </Button>
+        </div>
       </div>
       <div>
         {/* grid */}
